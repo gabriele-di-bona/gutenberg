@@ -71,15 +71,25 @@ if __name__ == '__main__':
 
     # create the parser
     args = parser.parse_args()
+    
+    print('mirror folder', args.mirror, flush=True)
+    print('raw folder', args.raw, flush=True)
+    print('metadata folder', args.metadata, flush=True)
 
     # check that all dirs exist
     if not os.path.isdir(args.mirror):
-        raise ValueError("The specified mirror directory does not exist.")
+        os.makedirs(args.mirror, exist_ok = True)
+        print('Created mirror folder', args.mirror, flush=True)
+#         raise ValueError("The specified mirror directory does not exist.")
     if not os.path.isdir(args.raw):
-        raise ValueError("The specified raw directory does not exist.")
+        os.makedirs(args.raw, exist_ok = True)
+        print('Created raw folder', args.raw, flush=True)
+#         raise ValueError("The specified raw directory does not exist.")
     if not os.path.isdir(args.metadata):
-        raise ValueError("The specified metadata directory does not exist.")
-
+        os.makedirs(args.metadata, exist_ok = True)
+        print('Created metadata folder', args.metadata, flush=True)
+#         raise ValueError("The specified metadata directory does not exist.")
+    
     # Update the .mirror directory via rsync
     # --------------------------------------
     # We sync the 'mirror_dir' with PG's site via rsync
